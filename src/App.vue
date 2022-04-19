@@ -8,16 +8,16 @@
           parent-name="行政區"
           parent-id="City"
           :parent-data="cityArr"
-          @update="updateCurrentCity"
+          @update="updateNowCity"
         />
         <FilterSelect
-          parent-name="行政區"
+          parent-name="鄉鎮區"
           parent-id="Town"
           :parent-data="townArr"
-          @update="updateCurrentTown"
+          @update="updateNowTown"
         />
       </div>
-      <Cards :parent-data="filterData" />
+      <Cards :parent-data="SelectedData" />
     </main>
     <TheFooter :parent-title="source.info" :parent-src="source.src" />
   </div>
@@ -46,7 +46,7 @@ export default {
         info: '政府資料開放平台',
         src: 'https://data.gov.tw/dataset/6037',
       },
-      current: {
+      now: {
         city: '',
         town: '',
       },
@@ -65,18 +65,18 @@ export default {
     townArr() {
       return Array.from(
         new Set(
-          this.data.filter((item) => item.City === this.current.city).map((item) => item.Town),
+          this.data.filter((item) => item.City === this.now.city).map((item) => item.Town),
         ),
       );
     },
-    filterData() {
-      if (this.current.city) {
-        if (!this.current.town) {
-          return this.data.filter((item) => item.City === this.current.city);
+    SelectedData() {
+      if (this.now.city) {
+        if (this.now.town) {
+          return this.data
+            .filter((item) => item.City === this.now.city)
+            .filter((item) => item.Town === this.now.town);
         }
-        return this.data
-          .filter((item) => item.City === this.current.city)
-          .filter((item) => item.Town === this.current.townl);
+        return this.data.filter((item) => item.City === this.now.city);
       }
       return this.data;
     },
@@ -91,11 +91,12 @@ export default {
         console.log('資料連結失敗:\n', e);
       }
     },
-    updateCurrentCity(val) {
-      this.current.city = val;
+    updateNowCity(val) {
+      this.now.city = val;
+      this.now.town = '';
     },
-    updateCurrentTown(val) {
-      this.current.town = val;
+    updateNowTown(val) {
+      this.now.town = val;
     },
   },
 };
@@ -116,12 +117,6 @@ export default {
       top: 20px;
       bottom: 20px;
     }
-    @include phone-md {
-      margin: {
-        left: 10px;
-        right: 10px;
-      }
-    }
     @include phone-lg {
       padding: {
         top: 0;
@@ -129,6 +124,18 @@ export default {
       }
       background: {
         color: transparent;
+      }
+    }
+  }
+  .main {
+    padding: {
+      left: 15px;
+      right: 15px;
+    }
+    @include phone-lg {
+      padding: {
+        left: 10px;
+        right: 10px;
       }
     }
   }

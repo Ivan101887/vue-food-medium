@@ -4,7 +4,7 @@
     :id="parentId"
     @change="$emit('update', $event.target.value)"
   >
-    <option class="form__option" value="" selected disabled>
+    <option class="form__option" value="" :selected="!parentData.length">
       請選擇{{ parentName }}
     </option>
     <option

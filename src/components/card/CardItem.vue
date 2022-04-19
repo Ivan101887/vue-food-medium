@@ -1,20 +1,18 @@
 <template>
   <li class="card">
-    <div class="card__wrap">
-      <figure class="card__imgWrap">
-        <img
-          :src="parentData.PicURL"
-          :alt="parentData.Name"
-          class="card__img"
-          loading="lazy"
-        />
-      </figure>
-      <p class="card__tag">{{ parentData.City }}</p>
-      <div class="card__content">
-        <em class="card__town">{{ parentData.Town }}</em>
-        <h2 class="card__name">{{ parentData.Name }}</h2>
-        <p class="card__desc">{{ parentData.HostWords }}</p>
-      </div>
+    <figure class="card__imgWrap">
+      <img
+        :src="parentData.PicURL"
+        :alt="parentData.Name"
+        class="card__img"
+        loading="lazy"
+      />
+    </figure>
+    <p class="card__tag">{{ parentData.City }}</p>
+    <div class="card__content">
+      <em class="card__town">{{ parentData.Town }}</em>
+      <h2 class="card__name">{{ parentData.Name }}</h2>
+      <p class="card__desc">{{ parentData.HostWords }}</p>
     </div>
   </li>
 </template>
@@ -28,33 +26,16 @@ export default {
 </script>
 <style lang="scss" scoped>
   .card {
-    // width: (100% / 3);
-    // @include pad {
-    // width: (100% / 2);
-    // }
-    // @include phone-md {
-    // padding: 10px 10px 0 10px;
-    // }
-    // @include phone-lg {
-    // width: 100%;
-    // padding: {
-    // bottom: 0;
-    // }
-    // }
-    // padding: 15px;
+    position: relative;
+    overflow: hidden;
     box-sizing: border-box;
-    &__wrap {
-      position: relative;
-      overflow: hidden;
-      box-sizing: border-box;
-      &:hover {
-        .card {
-          &__imgWrap {
-            transform: scale(1.05);
-          }
-          &__content {
-            bottom: 12px;
-          }
+    &:hover {
+      .card {
+        &__imgWrap {
+          transform: scale(1.05);
+        }
+        &__content {
+          bottom: 12px;
         }
       }
     }
@@ -115,6 +96,7 @@ export default {
       }
       font: {
         size: 15px;
+        style: italic;
       }
     }
     &__name {
