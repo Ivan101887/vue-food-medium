@@ -1,19 +1,37 @@
 <template>
   <li class="card">
-    <figure class="card__imgWrap">
-      <img
-        :src="parentData.PicURL"
-        :alt="parentData.Name"
-        class="card__img"
-        loading="lazy"
-      />
-    </figure>
-    <p class="card__tag">{{ parentData.City }}</p>
-    <div class="card__content">
-      <em class="card__town">{{ parentData.Town }}</em>
-      <h2 class="card__name">{{ parentData.Name }}</h2>
-      <p class="card__desc">{{ parentData.HostWords }}</p>
-    </div>
+    <a class="card__link" :href="parentData.Url" v-if="parentData.Url">
+      <figure class="card__imgWrap">
+        <img
+          :src="parentData.PicURL"
+          :alt="parentData.Name"
+          class="card__img"
+          loading="lazy"
+        />
+      </figure>
+      <p class="card__tag">{{ parentData.City }}</p>
+      <div class="card__content">
+        <em class="card__town">{{ parentData.Town }}</em>
+        <h2 class="card__name">{{ parentData.Name }}</h2>
+        <p class="card__desc">{{ parentData.HostWords }}</p>
+      </div>
+    </a>
+    <template v-else>
+      <figure class="card__imgWrap">
+        <img
+          :src="parentData.PicURL"
+          :alt="parentData.Name"
+          class="card__img"
+          loading="lazy"
+        />
+      </figure>
+      <p class="card__tag">{{ parentData.City }}</p>
+      <div class="card__content">
+        <em class="card__town">{{ parentData.Town }}</em>
+        <h2 class="card__name">{{ parentData.Name }}</h2>
+        <p class="card__desc">{{ parentData.HostWords }}</p>
+      </div>
+    </template>
   </li>
 </template>
 <script>
