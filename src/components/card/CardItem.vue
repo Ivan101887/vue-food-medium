@@ -1,48 +1,40 @@
-<template>
-  <li class="card">
-    <a class="card__link" :href="parentData.Url" v-if="parentData.Url">
-      <figure class="card__imgWrap">
-        <img
-          :src="parentData.PicURL"
-          :alt="parentData.Name"
-          class="card__img"
-          loading="lazy"
-        />
-      </figure>
-      <p class="card__tag">{{ parentData.City }}</p>
-      <div class="card__content">
-        <em class="card__town">{{ parentData.Town }}</em>
-        <h2 class="card__name">{{ parentData.Name }}</h2>
-        <p class="card__desc">{{ parentData.HostWords }}</p>
-      </div>
-    </a>
-    <template v-else>
-      <figure class="card__imgWrap">
-        <img
-          :src="parentData.PicURL"
-          :alt="parentData.Name"
-          class="card__img"
-          loading="lazy"
-        />
-      </figure>
-      <p class="card__tag">{{ parentData.City }}</p>
-      <div class="card__content">
-        <em class="card__town">{{ parentData.Town }}</em>
-        <h2 class="card__name">{{ parentData.Name }}</h2>
-        <p class="card__desc">{{ parentData.HostWords }}</p>
-      </div>
-    </template>
-  </li>
-</template>
 <script>
 export default {
-  name: 'card-parentData',
+  name: 'card',
   props: {
     parentData: Object,
   },
+  render(createElement) {
+    return createElement(
+      'li',
+      {
+        class: 'card',
+        domProps: {
+          innerHTML: `
+          ${this.parentData.Url ? `<a href="${this.parentData.Url}" target="_blank">` : ''}
+            <figure class="card__imgWrap">
+              <img
+                src="${this.parentData.PicURL}"
+                alt="${this.parentData.Name}"
+                class="card__img"
+                loading="lazy"
+              />
+            </figure>
+            <p class="card__tag">${this.parentData.City}</p>
+            <div class="card__content">
+              <em class="card__town">${this.parentData.Town}</em>
+              <h2 class="card__name">${this.parentData.Name}</h2>
+              <p class="card__desc">${this.parentData.HostWords}</p>
+            </div>
+          ${this.parentData.Url ? '</a>' : ''}`,
+        },
+      },
+    );
+  },
+
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
   .card {
     position: relative;
     overflow: hidden;

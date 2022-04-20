@@ -6,13 +6,13 @@
       <div class="form">
         <FilterSelect
           parent-name="行政區"
-          parent-id="City"
+          :parent-is-disabled="isDisabled.city"
           :parent-data="cityArr"
           @update="updateNowCity"
         />
         <FilterSelect
           parent-name="鄉鎮區"
-          parent-id="Town"
+          :parent-is-disabled="isDisabled.town"
           :parent-data="townArr"
           @update="updateNowTown"
         />
@@ -51,6 +51,10 @@ export default {
         town: '',
       },
       data: [],
+      isDisabled: {
+        city: false,
+        town: false,
+      },
       isLoading: true,
     };
   },
@@ -60,14 +64,12 @@ export default {
   },
   computed: {
     cityArr() {
-      return Array.from(new Set(this.data.map((item) => item.City)));
+      return [...new Set(this.data.map((item) => item.City))];
     },
     townArr() {
-      return Array.from(
-        new Set(
-          this.data.filter((item) => item.City === this.now.city).map((item) => item.Town),
-        ),
-      );
+      return [...new Set(
+        this.data.filter((item) => item.City === this.now.city).map((item) => item.Town),
+      )];
     },
     SelectedData() {
       if (this.now.city) {
@@ -94,9 +96,11 @@ export default {
     updateNowCity(val) {
       this.now.city = val;
       this.now.town = '';
+      this.isDisabled.city = !this.isDisabled.city;
     },
     updateNowTown(val) {
       this.now.town = val;
+      this.isDisabled = !this.isDisabled.town;
     },
   },
 };
