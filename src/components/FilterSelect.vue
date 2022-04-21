@@ -1,13 +1,11 @@
 <template>
   <select
     class="form__sel"
-    @change="$emit('update', $event.target.value)"
+    @change="change"
+    @click.prevent="click"
+    :disabled="!parentData.length"
   >
-    <option
-      class="form__option"
-      :selected="!parentData.length"
-      :disabled="parentIsDisabled"
-     >
+    <option class="form__option" :id="parentId" selected >
       請選擇{{ parentName }}
     </option>
     <option
@@ -24,9 +22,17 @@
 export default {
   name: 'filter-select',
   props: {
-    parentIsDisabled: Boolean,
     parentName: String,
     parentData: Array,
+    parentId: String,
+  },
+  methods: {
+    change(e) {
+      this.$emit('update', e.target.value);
+    },
+    click() {
+      document.querySelector(`#${this.parentId}`).disabled = !document.querySelector(`#${this.parentId}`).disabled;
+    },
   },
 };
 </script>

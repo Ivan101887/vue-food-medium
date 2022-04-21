@@ -1,8 +1,3 @@
-<template>
-  <header class="header">
-    <h1 class="header__tit text-center">{{ parentTitle }}</h1>
-  </header>
-</template>
 <script>
 export default {
   name: 'the-header',
@@ -12,10 +7,22 @@ export default {
       required: true,
     },
   },
+  render(h) {
+    return h(
+      'header',
+      {
+        class: 'header',
+        domProps: {
+          innerHTML:
+          `<h1 class="header__tit text-center">${this.parentTitle}</h1>`,
+        },
+      },
+    );
+  },
 };
 </script>
 <style lang="scss" scoped>
-  .header {
+  ::v-deep .header {
     padding: {
       top: 32px;
       bottom: 35px;
