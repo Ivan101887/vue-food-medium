@@ -21,8 +21,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-  ::v-deep .header {
+<style lang="scss">
+  .header {
     padding: {
       top: 32px;
       bottom: 35px;
